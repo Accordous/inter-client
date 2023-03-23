@@ -27,16 +27,6 @@ abstract class Endpoint
 
     protected function validate(array $attributes, array $rules, array $messages): array
     {
-        $validator = Validator::make($attributes, $rules, $messages);
-
-        //return Validator::validate($attributes, $rules, $messages);
-
-        if ($validator->fails()) {
-            logger('erro', [$validator->errors()]);
-        }
-
-        logger('validated', [$validator->validated()]);
-
-        return $validator->validated();
+        return Validator::validate($attributes, $rules, $messages);
     }
 }

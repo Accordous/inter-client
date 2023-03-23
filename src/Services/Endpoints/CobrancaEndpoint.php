@@ -47,6 +47,23 @@ class CobrancaEndpoint extends Endpoint
         return $this->client()->get(self::BASE_URI . parent::getApiVersion() . "/boletos/$nossoNumero/pdf");
     }
 
+    /**
+     * @param string $url
+     * @return \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
+     */
+    public function criarWebhook(string $url)
+    {
+        return $this->client()->put(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook", $this->validate($attributes, $this->criarWebhookRules(), $this->criarWebhookMessages()));
+    }
+
+    /**
+     * @return \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
+     */
+    public function deletarWebhook()
+    {
+        return $this->client()->delete(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook");
+    }
+
     private function emitirBoletoRules(): array
     {
         return [
@@ -140,6 +157,20 @@ class CobrancaEndpoint extends Endpoint
     {
         return [
             'motivoCancelamento' => 'Motivo do cancelamento é obrigatório.',
+        ];
+    }
+
+    private function criarWebhookRules(): array
+    {
+        return [
+            'webhookUrl' => 'required|string|url',
+        ];
+    }
+
+    private function criarWebhookMessages(): array
+    {
+        return [
+            'webhookUrl' => 'URL é obrigatório.',
         ];
     }
 }
