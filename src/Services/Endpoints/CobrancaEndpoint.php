@@ -53,7 +53,7 @@ class CobrancaEndpoint extends Endpoint
      */
     public function criarWebhook(string $url)
     {
-        return $this->client()->put(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook", $this->validate($attributes, $this->criarWebhookRules(), $this->criarWebhookMessages()));
+        return $this->client()->put(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook", $this->validate(['webhookUrl' => $url], $this->criarWebhookRules(), $this->criarWebhookMessages()));
     }
 
     /**
