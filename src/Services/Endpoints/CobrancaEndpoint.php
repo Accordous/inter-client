@@ -122,7 +122,7 @@ class CobrancaEndpoint extends Endpoint
             'mora.codigoMora' => 'required_if:mora,!=,null|string|in:VALORDIA,TAXAMENSAL,ISENTO',
             'mora.data' => 'required_if:mora.codigoMora,VALORDIA,TAXAMENSAL|date_format:Y-m-d',
             'mora.taxa' => 'required_if:mora.codigoMora,TAXAMENSAL|numeric',
-            'mora.valor' => 'required_if:mora,!=,null|numeric',
+            'mora.valor' => 'required_if:mora.codigoMora,VALORDIA|numeric',
 
             'beneficiarioFinal' => 'nullable',
             'beneficiarioFinal.nome' => 'required_if:beneficiarioFinal,!=,null|string',
