@@ -22,8 +22,8 @@ class OAuthEndpoint extends Endpoint
     private function rules(): array
     {
         return [
-            'client_id' => 'required',
-            'client_secret' => 'required',
+            'client_id' => 'required|uuid',
+            'client_secret' => 'required|uuid',
             'grant_type' => 'required',
             'scope' => 'required',
         ];

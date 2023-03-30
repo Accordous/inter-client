@@ -67,32 +67,32 @@ class CobrancaEndpoint extends Endpoint
     private function emitirBoletoRules(): array
     {
         return [
-            'seuNumero' => 'required|string',
+            'seuNumero' => 'required|string|max:15',
             'valorNominal' => 'required|numeric',
             'dataVencimento' => 'required|date_format:Y-m-d',
             'numDiasAgenda' => 'required|integer|min:0|max:60',
 
             'pagador' => 'required',
-            'pagador.cpfCnpj' => 'required|string',
+            'pagador.cpfCnpj' => 'required|string|min:11|max:14',
             'pagador.tipoPessoa' => 'required|in:FISICA,JURIDICA',
-            'pagador.nome' => 'required|string',
-            'pagador.endereco' => 'required|string',
-            'pagador.numero' => 'nullable|string',
-            'pagador.complemento' => 'nullable|string',
-            'pagador.bairro' => 'nullable|string',
-            'pagador.cidade' => 'required|string',
-            'pagador.uf' => 'required|string',
-            'pagador.cep' => 'required|string',
-            'pagador.email' => 'nullable|string|email',
+            'pagador.nome' => 'required|string|min:1|max:100',
+            'pagador.endereco' => 'required|string|min:1|max:100',
+            'pagador.numero' => 'nullable|string|max:10',
+            'pagador.complemento' => 'nullable|string|max:30',
+            'pagador.bairro' => 'nullable|string|max:60',
+            'pagador.cidade' => 'required|string|min:1|max:60',
+            'pagador.uf' => 'required|string|size:2',
+            'pagador.cep' => 'required|string|size:8',
+            'pagador.email' => 'nullable|string|email|max:50',
             'pagador.ddd' => 'nullable|string|size:2',
             'pagador.telefone' => 'nullable|string|max:9',
 
             'mensagem' => 'nullable',
-            'mensagem.linha1' => 'nullable|string',
-            'mensagem.linha2' => 'nullable|string',
-            'mensagem.linha3' => 'nullable|string',
-            'mensagem.linha4' => 'nullable|string',
-            'mensagem.linha5' => 'nullable|string',
+            'mensagem.linha1' => 'nullable|string|max:78',
+            'mensagem.linha2' => 'nullable|string|max:78',
+            'mensagem.linha3' => 'nullable|string|max:78',
+            'mensagem.linha4' => 'nullable|string|max:78',
+            'mensagem.linha5' => 'nullable|string|max:78',
 
             'desconto1' => 'nullable',
             'desconto1.codigoDesconto' => 'required_if:desconto1,!=,null|string|in:NAOTEMDESCONTO,VALORFIXODATAINFORMADA,PERCENTUALDATAINFORMADA',
@@ -132,7 +132,7 @@ class CobrancaEndpoint extends Endpoint
             'beneficiarioFinal.endereco' => 'required_if:beneficiarioFinal,!=,null|string',
             'beneficiarioFinal.bairro' => 'nullable|string',
             'beneficiarioFinal.cidade' => 'required_if:beneficiarioFinal,!=,null|string',
-            'beneficiarioFinal.uf' => 'required_if:beneficiarioFinal,!=,null|string',
+            'beneficiarioFinal.uf' => 'required_if:beneficiarioFinal,!=,null|string|size:2',
         ];
     }
 
@@ -163,7 +163,7 @@ class CobrancaEndpoint extends Endpoint
     private function criarWebhookRules(): array
     {
         return [
-            'webhookUrl' => 'required|string|url',
+            'webhookUrl' => 'required|string|url|regex:/^(https:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
         ];
     }
 
