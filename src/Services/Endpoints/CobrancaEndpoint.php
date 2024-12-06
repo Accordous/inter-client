@@ -4,7 +4,7 @@ namespace Accordous\InterClient\Services\Endpoints;
 
 class CobrancaEndpoint extends Endpoint
 {
-    private const BASE_URI = '/cobranca';
+    private const BASE_URI = "/cobranca/";
 
     /**
      * @param array $attributes
@@ -12,7 +12,7 @@ class CobrancaEndpoint extends Endpoint
      */
     public function emitirBoleto(array $attributes)
     {
-        return $this->client()->post(self::BASE_URI . parent::getApiVersion() . '/boletos', $this->validate($attributes, $this->emitirBoletoRules(), $this->emitirBoletoMessages()));
+        return $this->client()->post(self::BASE_URI . parent::getApiCobrancaVersion() . '/cobrancas', $this->validate($attributes, $this->emitirBoletoRules(), $this->emitirBoletoMessages()));
     }
 
     /**

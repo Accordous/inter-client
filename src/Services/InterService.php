@@ -56,7 +56,7 @@ class InterService
         if ($token === null) {
             $tokenKey = 'token_' . $clientId;
 
-            $token = cache()->remember($tokenKey, self::TOKEN_TIME, fn () => $this->getToken($clientId, $clientSecret));
+            $token = cache()->remember($tokenKey, self::TOKEN_TIME, fn() => $this->getToken($clientId, $clientSecret));
         }
 
         $this->http->withToken($token);

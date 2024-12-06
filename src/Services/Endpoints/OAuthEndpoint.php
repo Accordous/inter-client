@@ -4,7 +4,7 @@ namespace Accordous\InterClient\Services\Endpoints;
 
 class OAuthEndpoint extends Endpoint
 {
-    private const BASE_URI = '/oauth';
+    private const BASE_URI = '/oauth/';
 
     /**
      * @param array $attributes

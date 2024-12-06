@@ -25,6 +25,11 @@ abstract class Endpoint
         return Config::get('inter.api');
     }
 
+    protected function getApiCobrancaVersion()
+    {
+        return Config::get('inter.api_cobranca_version');
+    }
+
     protected function validate(array $attributes, array $rules, array $messages): array
     {
         return Validator::validate($attributes, $rules, $messages);
