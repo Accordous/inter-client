@@ -16,17 +16,17 @@ class CobrancaEndpoint extends Endpoint
     }
 
     /**
-     * @param string $nossoNumero
+     * @param string $codigoSolicitacao
      * @param string $motivo
      * @return \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
      */
-    public function cancelarBoleto(string $nossoNumero, $motivo)
+    public function cancelarBoleto(string $codigoSolicitacao, string $motivo)
     {
         $attributes = [
             'motivoCancelamento' => $motivo,
         ];
 
-        return $this->client()->post(self::BASE_URI . parent::getApiVersion() . "/boletos/$nossoNumero/cancelar", $this->validate($attributes, $this->cancelarBoletoRules(), $this->cancelarBoletoMessages()));
+        return $this->client()->post(self::BASE_URI . parent::getApiCobrancaVersion() . "/cobrancas/$codigoSolicitacao/cancelar", $this->validate($attributes, $this->cancelarBoletoRules(), $this->cancelarBoletoMessages()));
     }
 
     /**
@@ -94,33 +94,19 @@ class CobrancaEndpoint extends Endpoint
             'mensagem.linha4' => 'nullable|string|max:78',
             'mensagem.linha5' => 'nullable|string|max:78',
 
-            'desconto1' => 'nullable',
-            'desconto1.codigoDesconto' => 'required_if:desconto1,!=,null|string|in:NAOTEMDESCONTO,VALORFIXODATAINFORMADA,PERCENTUALDATAINFORMADA',
-            'desconto1.data' => 'nullable|date_format:Y-m-d',
-            'desconto1.taxa' => 'required_if:desconto1,!=,null|numeric',
-            'desconto1.valor' => 'required_if:desconto1,!=,null|numeric',
-
-            'desconto2' => 'nullable',
-            'desconto2.codigoDesconto' => 'required_if:desconto2,!=,null|string|in:NAOTEMDESCONTO,VALORFIXODATAINFORMADA,PERCENTUALDATAINFORMADA',
-            'desconto2.data' => 'nullable|date_format:Y-m-d',
-            'desconto2.taxa' => 'required_if:desconto2,!=,null|numeric',
-            'desconto2.valor' => 'required_if:desconto2,!=,null|numeric',
-
-            'desconto3' => 'nullable',
-            'desconto3.codigoDesconto' => 'required_if:desconto3,!=,null|string|in:NAOTEMDESCONTO,VALORFIXODATAINFORMADA,PERCENTUALDATAINFORMADA',
-            'desconto3.data' => 'nullable|date_format:Y-m-d',
-            'desconto3.taxa' => 'required_if:desconto3,!=,null|numeric',
-            'desconto3.valor' => 'required_if:desconto3,!=,null|numeric',
+            'desconto' => 'nullable',
+            'desconto.codigoDesconto' => 'required_if:desconto,!=,null|string|in:NAOTEMDESCONTO,VALORFIXODATAINFORMADA,PERCENTUALDATAINFORMADA',
+            'desconto.taxa' => 'required_if:desconto,!=,null|numeric',
+            'desconto.valor' => 'required_if:desconto,!=,null|numeric',
+            'desconto.quantidadeDias' => 'required_if:desconto,!=,null|numeric',
 
             'multa' => 'nullable',
             'multa.codigoMulta' => 'required_if:multa,!=,null|string|in:NAOTEMMULTA,VALORFIXO,PERCENTUAL',
-            'multa.data' => 'nullable|date_format:Y-m-d',
             'multa.taxa' => 'required_if:multa,!=,null|numeric',
             'multa.valor' => 'required_if:multa,!=,null|numeric',
 
             'mora' => 'nullable',
             'mora.codigoMora' => 'required_if:mora,!=,null|string|in:VALORDIA,TAXAMENSAL,ISENTO',
-            'mora.data' => 'required_if:mora.codigoMora,VALORDIA,TAXAMENSAL|date_format:Y-m-d',
             'mora.taxa' => 'required_if:mora.codigoMora,TAXAMENSAL|numeric',
             'mora.valor' => 'required_if:mora.codigoMora,VALORDIA|numeric',
 
