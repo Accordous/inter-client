@@ -30,12 +30,12 @@ class CobrancaEndpoint extends Endpoint
     }
 
     /**
-     * @param string $nossoNumero
+     * @param string $codigoSolicitacao
      * @return \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
      */
-    public function detalharBoleto(string $nossoNumero)
+    public function detalharBoleto(string $codigoSolicitacao)
     {
-        return $this->client()->get(self::BASE_URI . parent::getApiVersion() . "/boletos/$nossoNumero");
+        return $this->client()->get(self::BASE_URI . parent::getApiCobrancaVersion() . "/cobrancas/$codigoSolicitacao");
     }
 
     /**
