@@ -39,12 +39,12 @@ class CobrancaEndpoint extends Endpoint
     }
 
     /**
-     * @param string $nossoNumero
+     * @param string $codigoSolicitacao
      * @return \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
      */
-    public function pdfBoleto(string $nossoNumero)
+    public function pdfBoleto(string $codigoSolicitacao)
     {
-        return $this->client()->get(self::BASE_URI . parent::getApiVersion() . "/boletos/$nossoNumero/pdf");
+        return $this->client()->get(self::BASE_URI . parent::getApiCobrancaVersion() . "/cobrancas/$codigoSolicitacao/pdf");
     }
 
     /**
@@ -53,7 +53,7 @@ class CobrancaEndpoint extends Endpoint
      */
     public function criarWebhook(string $url)
     {
-        return $this->client()->put(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook", $this->validate(['webhookUrl' => $url], $this->criarWebhookRules(), $this->criarWebhookMessages()));
+        return $this->client()->put(self::BASE_URI . parent::getApiCobrancaVersion() . "/cobrancas/webhook", $this->validate(['webhookUrl' => $url], $this->criarWebhookRules(), $this->criarWebhookMessages()));
     }
 
     /**
@@ -61,7 +61,7 @@ class CobrancaEndpoint extends Endpoint
      */
     public function deletarWebhook()
     {
-        return $this->client()->delete(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook");
+        return $this->client()->delete(self::BASE_URI . parent::getApiCobrancaVersion() . "/cobrancas/webhook");
     }
 
     private function emitirBoletoRules(): array
