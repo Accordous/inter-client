@@ -64,6 +64,14 @@ class CobrancaEndpoint extends Endpoint
         return $this->client()->delete(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook");
     }
 
+    /**
+     * @return \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
+     */
+    public function getWebhook()
+    {
+        return $this->client()->get(self::BASE_URI . parent::getApiVersion() . "/boletos/webhook");
+    }
+
     private function emitirBoletoRules(): array
     {
         return [
